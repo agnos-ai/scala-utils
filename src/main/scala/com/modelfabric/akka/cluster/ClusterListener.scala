@@ -20,7 +20,7 @@ class ClusterListener extends Actor with ActorLogging {
     case state: CurrentClusterState ⇒
       log.info("Current members: {}", state.members.mkString(", "))
 
-    /**
+    /*
      * A new member has joined the cluster and its status has been changed to Up.
      */
 //  case msg @ MemberUp(member) ⇒ superVisor forward msg // this only works in Akka 2.3.x
@@ -28,20 +28,20 @@ class ClusterListener extends Actor with ActorLogging {
       log.info(s"Forwarding MemberUp($member) message to supervisor")
       superVisor.tell(msg, sender)
 
-    /**
+    /*
      * A member is leaving the cluster and its status has been changed to Exiting Note that the node might already have
      * been shutdown when this event is published on another node.
      */
     case MemberExited(member) =>
       log.info(s"Member is Exiting: ${member.address}")
 
-    /**
+    /*
      * Member completely removed from the cluster.
      */
     case MemberRemoved(member, previousStatus) ⇒
       log.info("Member is Removed: {} after {}", member.address, previousStatus)
 
-    /**
+    /*
      * A member is considered as unreachable, detected by the failure detector of at least one other node.
      */
     case UnreachableMember(member) ⇒

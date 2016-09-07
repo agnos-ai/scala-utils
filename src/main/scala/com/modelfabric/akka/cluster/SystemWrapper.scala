@@ -4,7 +4,10 @@ import akka.actor.ActorSystem
 import akka.event.Logging
 import com.modelfabric.main.BooterProperties
 import com.typesafe.config.Config
-import scala.util.{Failure, Try, Success}
+
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
+import scala.util.{Failure, Success, Try}
 
 /**
  * AkkaSystemWrapper is a wrapper around the ActorSystem instance adding a few bells and whistles around the ActorSystem
@@ -53,7 +56,7 @@ class SystemWrapper(akkaConfig: Config) {
 
     sys addShutdownHook {
       l.info("Received Ctrl+C, shutting down")
-      zystem.shutdown()
+      zystem.terminate()
     }
 
     zystem
@@ -65,7 +68,7 @@ class SystemWrapper(akkaConfig: Config) {
 
     log.debug(s"System $path is awaiting termination")
 
-    if (! akkaConfig.getBoolean("launch.test")) system.awaitTermination()
+    if (! akkaConfig.getBoolean("launch.test")) Await.result(system.whenTerminated, Duration.Inf)
 
     1 // We could support other exit codes here
   }

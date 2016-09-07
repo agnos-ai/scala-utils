@@ -5,6 +5,9 @@ import akka.event.Logging
 import com.modelfabric.main.BooterProperties
 import com.typesafe.config.Config
 
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
+
 /**
  * Deals with setting up and/or (re)joining an Akka Cluster, running seed-nodes etc.
  */
@@ -23,7 +26,7 @@ class ClusterWrapper private (params: ClusterParams) {
 
     log.debug(s"Cluster akka://$name is awaiting termination")
 
-    if (! params.config.getBoolean("launch.test")) systemWrapper.system.awaitTermination()
+    if (! params.config.getBoolean("launch.test")) Await.result(systemWrapper.system.whenTerminated, Duration.Inf)
 
     1 // We could support other exit codes here
   }
@@ -57,7 +60,7 @@ private[this] object ClusterWrapperBuilder {
       for(role <- kluster.selfRoles)
         log.info (s"Cluster has Role $role")
 
-      /**
+      /*
        * Deploy the cluster listener that will do some reporting on what happens with the Akka Cluster
        */
       ClusterListener(systemWrapper.system)
