@@ -48,7 +48,8 @@ class ClusterListener extends Actor with ActorLogging {
     case UnreachableMember(member) ⇒
       log.info("Member detected as unreachable: {}", member)
 
-    //    case _ : ClusterMetricsChanged => // ignore
+
+//    case _ : ClusterMetricsChanged => // ignore
 
     case m1 : ClusterDomainEvent ⇒ log.info("ClusterDomainEvent: " + m1) // ignore
 
