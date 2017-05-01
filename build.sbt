@@ -6,7 +6,8 @@ scalaVersion  := "2.11.8"
 
 lazy val commonSettings = Seq(
   organization := "com.modelfabric",
-  version      := "0.3-SNAPSHOT"
+  version      := "0.3-SNAPSHOT",
+  name         := "scala-utils"
 )
 
 
@@ -30,8 +31,7 @@ libraryDependencies ++= {
 
 lazy val root = (project in file("."))
   .settings(
-    commonSettings,
-    name := "scala-utils"
+    commonSettings
   )
 
 fork in run := true
