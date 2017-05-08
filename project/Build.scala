@@ -1,6 +1,7 @@
 import sbt._
 import Keys._
-//import spray.revolver.RevolverPlugin._
+
+import scala.util.Try
 
 
 object BuildSettings {
@@ -28,9 +29,9 @@ object PublishingSettings {
     pomIncludeRepository    := { _ => false },
     publishTo := {
       if (isSnapshot.value) {
-        Some("snapshots" at sys.env("REPOSITORY_SNAPSHOTS"))
+        Try("snapshots" at sys.env("REPOSITORY_SNAPSHOTS")).toOption
       } else {
-        Some("releases" at sys.env("REPOSITORY_RELEASES"))
+        Try("releases" at sys.env("REPOSITORY_RELEASES")).toOption
       }
     },
     pomExtra := {
@@ -62,7 +63,7 @@ object PublishingSettings {
 object Version {
 
   val scala      = "2.11.8"
-  val akka       = "2.4.8"
+  val akka       = "2.4.16"
   val spray      = "1.3.3"
   val commnsLang = "3.4"
   val scalaTest  = "2.2.5"
@@ -74,7 +75,6 @@ object Library {
   val akkaActor         = "com.typesafe.akka"  %% "akka-actor"                        % Version.akka
   val akkaCluster       = "com.typesafe.akka"  %% "akka-cluster"                      % Version.akka
   val apacheCommons     = "org.apache.commons" %  "commons-lang3"                     % Version.commnsLang
-  val sprayCan          = "io.spray"           %% "spray-can"                         % Version.spray
   val scalaTest         = "org.scalatest"      %% "scalatest"                         % Version.scalaTest   % "it,test"
   val akkaTestkit       = "com.typesafe.akka"  %% "akka-testkit"                      % Version.akka        % "it,test"
 }
@@ -87,7 +87,7 @@ object Build extends sbt.Build {
   import plugins._
 
   val projectDependencies = Seq(
-    akkaActor, akkaCluster, apacheCommons, sprayCan,
+    akkaActor, akkaCluster, apacheCommons,
     scalaTest, akkaTestkit)
 
   lazy val project = Project("scala-utils", file("."))
@@ -97,5 +97,3 @@ object Build extends sbt.Build {
     .settings(name := "scala-utils")
     .settings(libraryDependencies ++= projectDependencies)
 } 
-
-
