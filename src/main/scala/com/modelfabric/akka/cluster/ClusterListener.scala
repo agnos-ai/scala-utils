@@ -5,8 +5,8 @@ import akka.cluster.ClusterEvent._
 import akka.cluster.{Cluster, Member}
 
 /**
-  * AkkaClusterListener is a simple actor that logs the important events that happen on the Akka Cluster
-  */
+ * AkkaClusterListener is a simple actor that logs the important events that happen on the Akka Cluster
+ */
 @deprecated("Stop functional after migrating to akka 2.5.0","2017-04-28")
 class ClusterListener extends Actor with ActorLogging {
 
@@ -47,7 +47,6 @@ class ClusterListener extends Actor with ActorLogging {
      */
     case UnreachableMember(member) ⇒
       log.info("Member detected as unreachable: {}", member)
-
 
 //    case _ : ClusterMetricsChanged => // ignore
 

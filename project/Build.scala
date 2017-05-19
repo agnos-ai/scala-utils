@@ -61,7 +61,7 @@ object PublishingSettings {
 }
 
 object Version {
-
+  
   val scala      = "2.11.8"
   val akka       = "2.5.0"
   val spray      = "1.3.3"
