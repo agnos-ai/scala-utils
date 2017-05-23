@@ -7,6 +7,7 @@ import akka.cluster.{Cluster, Member}
 /**
  * AkkaClusterListener is a simple actor that logs the important events that happen on the Akka Cluster
  */
+@deprecated("Stop functional after migrating to akka 2.5.0","2017-04-28")
 class ClusterListener extends Actor with ActorLogging {
 
   val cluster = Cluster(context.system)
@@ -23,7 +24,7 @@ class ClusterListener extends Actor with ActorLogging {
     /*
      * A new member has joined the cluster and its status has been changed to Up.
      */
-//  case msg @ MemberUp(member) ⇒ superVisor forward msg // this only works in Akka 2.3.x
+    //  case msg @ MemberUp(member) ⇒ superVisor forward msg // this only works in Akka 2.3.x
     case msg @ MemberUp(member) =>
       log.info(s"Forwarding MemberUp($member) message to supervisor")
       superVisor.tell(msg, sender)
@@ -47,7 +48,7 @@ class ClusterListener extends Actor with ActorLogging {
     case UnreachableMember(member) ⇒
       log.info("Member detected as unreachable: {}", member)
 
-    case _ : ClusterMetricsChanged => // ignore
+//    case _ : ClusterMetricsChanged => // ignore
 
     case m1 : ClusterDomainEvent ⇒ log.info("ClusterDomainEvent: " + m1) // ignore
 

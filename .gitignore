@@ -49,3 +49,5 @@ target/
 *.iws
 out/
 
+/bin/
+/.cache-main

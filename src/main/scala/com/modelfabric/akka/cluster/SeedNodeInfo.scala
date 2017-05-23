@@ -1,7 +1,8 @@
 package com.modelfabric.akka.cluster
 
 import akka.event.LoggingAdapter
-import collection.JavaConversions._
+//import collection.JavaConversions._
+import scala.collection.JavaConverters._
 import com.typesafe.config.{ConfigFactory, Config}
 
 /**
@@ -22,10 +23,15 @@ object SeedNodeInfo {
 
   def seedNodeIndex(config: Config) = config.getInt("launch.seed-node-index")
 
-  def seedNodesList(config: Config) : List[String] =
-    config.getStringList("akka.cluster.seed-nodes").toList.map( (x: String) =>
-      x.replaceAll("localhost", hostIpAddress).replaceAll("127.0.0.1", hostIpAddress)
-    )
+
+  def seedNodesList(config: Config): List[String] = {
+
+    val _configJl = config.getStringList("akka.cluster.seed-nodes")
+      _configJl.asScala.toList.map(
+        (x: String) =>
+        x.replaceAll("localhost", hostIpAddress).replaceAll("127.0.0.1", hostIpAddress)
+      )
+  }
 
   /**
    * @param config the current application.conf config, assuming that it has a launch section with at least the
