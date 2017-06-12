@@ -1,24 +1,23 @@
 package com.modelfabric.main
 
-import scala.io.Source
-import java.io.InputStream
 
 import scala.collection.JavaConverters._
-import scala.io.Source
+//import scala.io.Source
 
 class Props(private val inputStream : java.io.InputStream) {
 
-  lazy private val source = {
-
-    val s = Source.fromInputStream(inputStream)
-
-    require(s != null)
-
-    for (line <- s.getLines())
-      println(line)
-
-    s
-  }
+// TODO clean this up since this is not used by anywhere
+//  lazy private val source = {
+//
+//    val s = Source.fromInputStream(inputStream)
+//
+//    require(s != null)
+//
+//    for (line <- s.getLines())
+//      println(line)
+//
+//    s
+//  }
 
   lazy val properties = {
 
