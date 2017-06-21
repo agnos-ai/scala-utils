@@ -1,7 +1,6 @@
 package com.modelfabric.akka.actor
 
 import akka.event.LoggingAdapter
-import akka.actor.Actor
 import akka.actor.Actor.Receive
 
 //import spray.can.server.HttpServer

@@ -1,10 +1,8 @@
 package com.modelfabric.akka.actor
 
 import akka.cluster.ClusterEvent.{MemberRemoved, MemberUp, MemberEvent}
-import akka.cluster.{Cluster, Member}
 import akka.actor.Actor.Receive
 import com.modelfabric.akka.cluster.MemberRegistry
-import akka.actor.Actor
 
 /**
  * A Member-Event Handler can receive Akka Cluster Member events

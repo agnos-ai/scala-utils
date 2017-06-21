@@ -2,7 +2,7 @@ package com.modelfabric.akka.cluster
 
 import akka.actor.{ActorRef, ActorSystem, Actor, ActorLogging}
 import akka.cluster.ClusterEvent._
-import akka.cluster.{Cluster, Member}
+import akka.cluster.{Cluster}
 
 /**
  * AkkaClusterListener is a simple actor that logs the important events that happen on the Akka Cluster

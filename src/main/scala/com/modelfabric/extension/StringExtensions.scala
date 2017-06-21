@@ -1,7 +1,6 @@
 package com.modelfabric.extension
 
 import scala.language.postfixOps
-import scala.io.Source
 
 object StringExtensions {
 
